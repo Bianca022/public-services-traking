@@ -1,0 +1,20 @@
+footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    width: 95%;
+    height: 10vh;
+    align-items: center;
+}
+
+footer a {
+    margin: 10px;
+    color: #FFB72A;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+a.logo-footer {
+    font-size: 30px;
+    align-items: center;
+}
