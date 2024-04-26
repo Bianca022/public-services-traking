@@ -1,9 +1,10 @@
 import MainPage from "./assets/Views/MainPage";
+import Routes from "./routes";
 
 function App() {
   return (
     <>
-      <MainPage />
+      <Routes />
     </>
   );
 }

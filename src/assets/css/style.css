@@ -2,6 +2,7 @@
 @import './mainPage.css';
 @import './footer.css';
 @import './cardPubli.css';
+@import './registerPubli.css';
 
 * {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

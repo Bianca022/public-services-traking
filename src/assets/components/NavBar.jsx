@@ -2,10 +2,10 @@ function NavBar() {
   return (
     <>
       <nav>
-        <a href="">Public Services Traking</a>
+        <a href="/home">Public Services Traking</a>
         <div>
-          <a href="">Pagina principal</a>
-          <a href="">Compartilhar algo</a>
+          <a href="/home">Pagina principal</a>
+          <a href="/registerPubli">Compartilhar algo</a>
         </div>
       </nav>
     </>
