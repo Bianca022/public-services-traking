@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Importando o useNavigate do React Router
-import { login } from "../../services/login";
+import { register } from "../../services/register";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -8,6 +8,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(""); // Estado para controlar a mensagem de sucesso
   const navigate = useNavigate(); // Obtendo a função de navegação do React Router
 
   const handleLoginClick = async () => {
@@ -20,17 +21,18 @@ function Login() {
         password: password,
       };
 
-      const response = await login(formData);
+      const response = await register(formData);
 
       if (response.success) {
-        console.log("Login bem-sucedido:", response.data);
+        console.log("Cadastro bem-sucedido:", response.data);
+        setSuccessMessage("Cadastro realizado com sucesso!"); // Definindo a mensagem de sucesso
         navigate("/home"); // Redirecionando para "/home" após o login bem-sucedido
       } else {
         setErrorMessage(response.message);
       }
     } catch (error) {
-      console.error("Erro ao fazer login:", error);
-      setErrorMessage("Erro ao fazer login. Por favor, tente novamente.");
+      console.error("Erro ao fazer cadastro:", error);
+      setErrorMessage("Erro ao fazer cadastro. Por favor, tente novamente.");
     } finally {
       setLoading(false);
     }
@@ -41,7 +43,7 @@ function Login() {
       <div className="body">
         <div className="container">
           <form>
-            <h1 style={{ textAlign: "center" }}>Login</h1>
+            <h1 style={{ textAlign: "center" }}>Cadastro de Usuário</h1>
             <div className="flex-colum">
               <label htmlFor="username">Nome de usuário:</label>
               <input
@@ -73,8 +75,13 @@ function Login() {
               />
             </div>
             {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+            {successMessage && (
+              <p style={{ color: "green" }}>{successMessage}</p>
+            )}
+
+            {/* Exibindo a mensagem de sucesso */}
             <button type="button" onClick={handleLoginClick} disabled={loading}>
-              {loading ? "Carregando..." : "Login"}
+              {loading ? "Carregando..." : "Cadastrar"}
             </button>
           </form>
         </div>
