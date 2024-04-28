@@ -6,9 +6,13 @@ export const login = async (formData) => {
       "http://127.0.0.1:8000/api/token/",
       formData
     );
+
+    // Guarda o token no localStorage
+    localStorage.setItem("accessToken", response.data.access);
+
     return {
       success: true,
-      data: response.data, // Return response data for successful login
+      data: response.data,
     };
   } catch (error) {
     console.error("Erro ao fazer login:", error);

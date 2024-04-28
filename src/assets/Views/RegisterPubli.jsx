@@ -1,52 +1,39 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Importando o useNavigate do React Router
+import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
-import { registerPubli, registerFile } from "../../services/registerPubli";
+import { registerPubli } from "../../services/registerPubli";
 
-function RegisterPubli({ postId }) {
-  // Recebendo postId como uma propriedade
+function RegisterPubli() {
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [content, setContent] = useState("");
   const [file, setFile] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState(""); // Estado para controlar a mensagem de sucesso
-  const navigate = useNavigate(); // Obtendo a função de navegação do React Router
+  const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleRegisterClick = async () => {
     try {
       setLoading(true);
 
-      // Primeiro, fazemos o upload do arquivo
-      console.log("Arquivo selecionado:", file);
-      console.log("ID da publicação:", postId);
-      const fileData = new FormData();
-      fileData.append("file", file);
-      const fileResponse = await registerFile(fileData, postId);
-      console.log(fileResponse);
-
-      if (!fileResponse.success) {
-        setErrorMessage(fileResponse.message);
-        setLoading(false);
-        return;
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("content", content);
+      if (file) {
+        formData.append("file", file);
       }
 
-      console.log("Resposta do upload de arquivo:", fileResponse); // Console para verificar a resposta do upload
-
-      // Se o upload do arquivo for bem-sucedido, procedemos com o cadastro da publicação
-      const publiFormData = {
-        title: title,
-        description: description,
-        file: fileResponse.data.url, // Usamos a URL do arquivo retornado pela resposta do upload
-      };
-      console.log("Dados da publicação:", publiFormData); // Console para verificar os dados da publicação
-      const publiResponse = await registerPubli(publiFormData);
+      const publiResponse = await registerPubli(formData);
+      console.log(publiResponse);
 
       if (publiResponse.success) {
-        console.log("Cadastro bem-sucedido:", publiResponse.data);
-        setSuccessMessage("Publicação realizada com sucesso!"); // Definindo a mensagem de sucesso
-        // navigate("/home"); // Redirecionando para "/home" após o cadastro bem-sucedido
+        setSuccessMessage("Publicação realizada com sucesso!");
+        //navigate("/home");
+        // Limpar os campos após o sucesso
+        setTitle("");
+        setContent("");
+        setFile(null);
       } else {
         setErrorMessage(publiResponse.message);
       }
@@ -80,10 +67,10 @@ function RegisterPubli({ postId }) {
               />
             </div>
             <div className="flex-colum">
-              <label htmlFor="description">Descrição:</label>
+              <label htmlFor="content">Conteúdo:</label>
               <textarea
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
                 cols={30}
                 rows={5}
               ></textarea>
@@ -91,8 +78,7 @@ function RegisterPubli({ postId }) {
             {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
             {successMessage && (
               <p style={{ color: "green" }}>{successMessage}</p>
-            )}{" "}
-            {/* Exibindo a mensagem de sucesso */}
+            )}
             <button
               type="button"
               onClick={handleRegisterClick}

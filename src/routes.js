@@ -9,14 +9,14 @@ function RouteApp() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="*" name="Home" element={<MainPage />} />
+        <Route path="home" name="Home" element={<MainPage />} />
         <Route
           path="registerPubli"
           name="RegisterPubli"
           element={<RegisterPubli />}
         />
         <Route path="EditPubli" name="EditPubli" element={<EditPubli />} />
-        <Route path="login" name="login" element={<Login />} />
+        <Route path="*" name="login" element={<Login />} />
         <Route
           path="registerUser"
           name="RegisterUser"
