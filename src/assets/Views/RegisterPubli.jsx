@@ -29,7 +29,9 @@ function RegisterPubli() {
 
       if (publiResponse.success) {
         setSuccessMessage("Publicação realizada com sucesso!");
-        //navigate("/home");
+        setTimeout(() => {
+          navigate("/home");
+        }, 2000);
         // Limpar os campos após o sucesso
         setTitle("");
         setContent("");

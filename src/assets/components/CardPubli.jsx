@@ -44,11 +44,39 @@ function CardPubli() {
     }
   };
 
+  const [greenLikes, setGreenLikes] = useState(200);
+  const [redLikes, setRedLikes] = useState(120);
+
+  const increaseGreenLikes = () => {
+    setGreenLikes(greenLikes + 1);
+  };
+
+  const decreaseGreenLikes = () => {
+    if (greenLikes > 0) {
+      setGreenLikes(greenLikes - 1);
+    }
+  };
+
+  const increaseRedLikes = () => {
+    setRedLikes(redLikes + 1);
+  };
+
+  const decreaseRedLikes = () => {
+    if (redLikes > 0) {
+      setRedLikes(redLikes - 1);
+    }
+  };
+
   return (
     <>
       {posts.map((post) => (
         <div key={post.id} className="card">
-          <img src={post.image} alt="" height="350" width="100%" />
+          <img
+            src={post.image}
+            alt=""
+            style={{ objectFit: "cover", width: "100%", maxHeight: "350px" }}
+          />
+
           <div className="card-body">
             <div className="card-align-list">
               <h3>{post.title}</h3>
@@ -72,14 +100,14 @@ function CardPubli() {
             </div>
             <p>{post.content}</p>
             {/* Botões de reações */}
-            <button className="card-button">
+            <button className="card-button" onClick={increaseGreenLikes}>
               <div className="card-button-green">
-                <img src={green} alt="" width={25} /> <p>600</p>
+                <img src={green} alt="" width={25} /> <p>{greenLikes}</p>
               </div>
             </button>
-            <button className="card-button">
+            <button className="card-button" onClick={decreaseRedLikes}>
               <div className="card-button-red">
-                <img src={red} alt="" width={25} /> <p>600</p>
+                <img src={red} alt="" width={25} /> <p>{redLikes}</p>
               </div>
             </button>
           </div>

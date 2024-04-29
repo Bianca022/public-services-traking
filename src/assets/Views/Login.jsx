@@ -76,6 +76,7 @@ function Login() {
             <button type="button" onClick={handleLoginClick} disabled={loading}>
               {loading ? "Carregando..." : "Login"}
             </button>
+            <a href="/registerUser">Realizar cadastro</a>
           </form>
         </div>
       </div>
